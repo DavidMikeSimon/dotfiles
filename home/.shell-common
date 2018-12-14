@@ -1,0 +1,9 @@
+export ERL_AFLAGS="-kernel shell_history enabled"
+
+alias u='cd ..'
+alias glog="git log --all --decorate --oneline --graph"
+alias docc="docker-compose"
+alias dcew="docker-compose exec web"
+alias ag="ag --path-to-ignore ~/.agignore"
+alias rubo_changed="{ git diff --name-only ; git diff --name-only --cached } | cat | xargs ls -1 2>/dev/null | grep '\.rb$' | xargs rubocop -a"
+alias eslint_changed="{ git diff --name-only ; git diff --name-only --cached } | cat | xargs ls -1 2>/dev/null | egrep '\.js.?$' | xargs eslint --fix"
