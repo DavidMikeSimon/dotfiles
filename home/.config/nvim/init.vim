@@ -5,13 +5,10 @@ Plug 'editorconfig/editorconfig-vim'
 Plug 'simnalamburt/vim-mundo'
 Plug 'scrooloose/nerdcommenter'
 Plug 'tpope/tpope-vim-abolish'
-" Plug 'tpope/vim-dispatch'
-" Plug 'vim-airline/vim-airline'
-" Plug 'vim-airline/vim-airline-themes'
 Plug 'itchyny/lightline.vim'
 Plug 'tpope/vim-eunuch'
 Plug 'tpope/vim-fugitive'
-" Plug 'airblade/vim-gitgutter'
+Plug 'airblade/vim-gitgutter'
 Plug 'easymotion/vim-easymotion'
 Plug 'haya14busa/incsearch.vim'
 Plug 'haya14busa/incsearch-fuzzy.vim'
@@ -20,13 +17,9 @@ Plug 'mxw/vim-jsx'
 Plug 'FooSoft/vim-argwrap'
 Plug 'kassio/neoterm'
 Plug 'djoshea/vim-autoread'
-" Plug 'neomake/neomake'
 Plug 'Shougo/deoplete.nvim'
-" Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-" Plug 'junegunn/fzf.vim'
 Plug 'janko-m/vim-test'
 Plug 'isRuslan/vim-es6'
-Plug 'nixprime/cpsm'
 Plug 'elixir-editors/vim-elixir'
 Plug 'maxbrunsfeld/vim-yankstack'
 call plug#end()
@@ -105,7 +98,7 @@ autocmd Filetype javascript setlocal comments=s1:/*,mb:*,ex:*/,://.,://
 autocmd Filetype javascript.jsx setlocal comments=s1:/*,mb:*,ex:*/,://.,://
 
 " Scroll through long lines one visual line at a time
-" DISABLED because it messes with relative line number motion (can it be fixed?)
+" FIXME disabled because it messes with relative line number motion
 "map j gj
 "map k gk
 
@@ -187,19 +180,11 @@ function! InsertIfTerminalBottom()
   endif
 endfunction
 
-" fzf
-" TODO Esc to quit FZF somehow
-" map ; :GFiles<CR>
-" map <leader>g :Ag<CR>
-
 " CtrlP
 map ; :CtrlP<CR>
 map z :CtrlPMRU<CR>
 let g:ctrlp_switch_buffer='t'
 let g:ctrlp_match_window = 'bottom,order:btt,min:1,max:25'
-"let g:ctrlp_match_func = {'match': 'cpsm#CtrlPMatch'}
-"let g:ctrlp_use_caching = 0
-"let g:ctrlp_user_command = 'ag %s --nocolor -g ""'
 let g:ctrlp_user_command = {
   \ 'types': {
     \ 1: ['.git', 'cd %s && git ls-files -co --exclude-standard'],
@@ -208,32 +193,14 @@ let g:ctrlp_user_command = {
   \ 'fallback': 'find %s -type f'
   \ }
 
-" CPSM
-let g:cpsm_query_inverting_delimiter = " "
-let g:cpsm_match_empty_query = 0
-
 " Mundo
 nnoremap <leader>u :MundoToggle<CR>
 let g:mundo_preview_bottom=1
 
-" airline
-set laststatus=2
-let g:airline_theme="base16"
-if !exists('g:airline_symbols')
-  let g:airline_symbols = {}
-endif
-" unicode symbols
-let g:airline_left_sep = '▶'
-let g:airline_right_sep = '◀'
-let g:airline_symbols.linenr = '¶'
-let g:airline_symbols.branch = '⎇'
-let g:airline_symbols.paste = 'ρ'
-let g:airline_symbols.whitespace = 'Ξ'
-let g:airline#extensions#default#layout = [ ['a','b','c'], ['x','z','warning' ] ]
-let g:airline#extensions#branch#displayed_head_limit = 12
-
 " git gutter
-let g:gitgutter_override_sign_column_highlight=0
+let g:gitgutter_override_sign_column_highlight=1
+let g:gitgutter_realtime=0
+let g:gitgutter_eager=0
 highlight SignColumn ctermbg=black
 
  " easymotion
@@ -264,36 +231,11 @@ tnoremap <C-t> <C-\><C-n>:Ttoggle<CR>
 let g:neoterm_autoinsert = 1
 let g:neoterm_default_mod = "botright"
 
-" neomake
-" TODO Can we report success, indicate which command ran?
-nnoremap <silent> <leader>l :Neomake<CR> " l is for lint
-" autocmd! BufWritePost,BufReadPost * Neomake
-"let g:neomake_verbose = 3
-let g:neomake_open_list = 2
-"let g:neomake_error_sign = { 'text': '✖', 'texthl': 'ErrorMsg' }
-"let g:neomake_warning_sign = { 'text': '⚠', 'texthl': 'ErrorMsg' }
-"let g:neomake_info_sign = { 'text': 'ℹ', 'texthl': 'ErrorMsg' }
-let g:neomake_ruby_rubocop_maker = {'exe': 'rubocop', 'args': ['--format', 'emacs', '--force-exclusion', '-c', './.rubocop.yml'], "cwd": "."}
-let g:neomake_ruby_enabled_makers = ['rubocop']
-" TODO Javascript results parsing seems broken?
-let g:neomake_javascript_eslint_maker  = {
-	\ 'exe': './node_modules/.bin/eslint',
-	\ 'args': ['-f', 'compact', '-c', './.eslintrc.json'],
-	\ "cwd": ".",
-	\ 'errorformat': '%E%f: line %l\, col %c\, Error - %m,' .
-	\   '%W%f: line %l\, col %c\, Warning - %m,%-G,%-G%*\d problems%#'
-	\ }
-let g:neomake_javascript_enabled_makers = ['eslint']
-
-" neomake-autolint
-let g:neomake_autolint_enabled = 1
-
 " deoplete
 let g:deoplete#enable_at_startup = 1
 inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
 
 " vim-test
-" TODO get it to parse jest output correctly for quickfix
 nnoremap <silent> <leader>tt :TestNearest<CR>
 nnoremap <silent> <leader>tf :TestFile<CR>
 nnoremap <silent> <leader>ta :TestSuite<CR>
