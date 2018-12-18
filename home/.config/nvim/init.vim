@@ -63,12 +63,6 @@ tnoremap <C-k> <C-\><C-n><C-w>k
 tnoremap <C-l> <C-\><C-n><C-w>l
 tnoremap <C-w> <C-\><C-n><C-w>
 
-" yankstack
-let g:yankstack_map_keys = 0
-call yankstack#setup()
-nmap <leader>p <Plug>yankstack_substitute_older_paste
-nmap <leader>P <Plug>yankstack_substitute_newer_paste
-
 " Tab completion settings
 set completeopt=longest,menuone
 set wildmode=longest,list,full
@@ -180,6 +174,15 @@ function! InsertIfTerminalBottom()
   endif
 endfunction
 
+" editorconfig
+let g:EditorConfig_exclude_patterns = ['fugitive://.*']
+
+" yankstack
+let g:yankstack_map_keys = 0
+call yankstack#setup()
+nmap <leader>p <Plug>yankstack_substitute_older_paste
+nmap <leader>P <Plug>yankstack_substitute_newer_paste
+
 " CtrlP
 map ; :CtrlP<CR>
 map z :CtrlPMRU<CR>
@@ -190,7 +193,7 @@ let g:ctrlp_user_command = {
     \ 1: ['.git', 'cd %s && git ls-files -co --exclude-standard'],
     \ 2: ['.hg', 'hg --cwd %s locate -I .'],
     \ },
-  \ 'fallback': 'find %s -type f'
+  \ 'fallback': "find %s -type f -not -path '*/\\.*' -maxdepth 5"
   \ }
 
 " Mundo
