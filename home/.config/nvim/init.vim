@@ -148,6 +148,9 @@ set scrolloff=10
 " Esc to leave terminal insert mode
 tnoremap <ESC> <C-\><C-n>
 
+" Don't want to run another vim inside vim neoterm
+let $EDITOR = 'nano'
+
 " When jumping to path under cursor, open in existing window or window 1
 "map <CR> :let mycurf=expand("<cfile>")<cr>1<C-w>w :execute("drop ".mycurf)<cr>
 map <silent> <CR> :call CarefulCursorFile()<CR>
@@ -241,7 +244,7 @@ inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
 " vim-test
 nnoremap <silent> <leader>tt :TestNearest<CR>
 nnoremap <silent> <leader>tf :TestFile<CR>
-nnoremap <silent> <leader>ta :TestSuite<CR>
+" nnoremap <silent> <leader>ta :TestSuite<CR>
 nnoremap <silent> <leader>tl :TestLast<CR>
 nnoremap <silent> <leader>tv :TestVisit<CR>
 let test#strategy = "neoterm"
