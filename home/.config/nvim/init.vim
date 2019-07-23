@@ -22,6 +22,9 @@ Plug 'janko-m/vim-test'
 Plug 'isRuslan/vim-es6'
 Plug 'elixir-editors/vim-elixir'
 Plug 'maxbrunsfeld/vim-yankstack'
+Plug 'rust-lang/rust.vim'
+Plug 'vmchale/just-vim'
+Plug 'machakann/vim-highlightedyank'
 call plug#end()
 
 let mapleader=","
@@ -40,6 +43,7 @@ set nohlsearch   " Highlight search results
 set shiftround   " Don't allow uneven indentation
 set noshowmode   " Don't show --INSERT-- below the statusline
 set lazyredraw   " Faster redrawing
+set inccommand=nosplit " Preview substitution
 
 " True color in terminal
 set termguicolors
@@ -147,6 +151,9 @@ set scrolloff=10
 
 " Esc to leave terminal insert mode
 tnoremap <ESC> <C-\><C-n>
+
+" When pasting in visual mode, don't send replaced text to the default register
+xnoremap p "_dP
 
 " Don't want to run another vim inside vim neoterm
 let $EDITOR = 'nano'
