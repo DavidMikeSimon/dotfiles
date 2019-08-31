@@ -49,8 +49,8 @@ set inccommand=nosplit " Preview substitution
 set termguicolors
 
 " Shortcuts to work with OS X clipboard
-map <leader>xc :w !pbcopy<CR><CR>
-map <leader>xp :r!pbpaste<CR>
+map <leader>xc :w !xsel --clipboard --input<CR><CR>
+map <leader>xp :r!xsel --clipboard --output<CR>
 
 " Convenience commands for window switching
 map <C-h> <C-w>h

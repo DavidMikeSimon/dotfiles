@@ -1,8 +1,1 @@
-export ERL_AFLAGS="-kernel shell_history enabled"
-
-alias u='cd ..'
-alias glog="git log --all --decorate --oneline --graph"
-alias docc="docker-compose"
-alias dcew="docker-compose exec web"
-alias ag="ag --path-to-ignore ~/.agignore"
-alias cdhs="cd `homesick show_path`"
+export DOCKER_HOST=ssh://dsimon@menace

@@ -8,7 +8,7 @@ export ZSH="/home/dsimon/.oh-my-zsh"
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
-ZSH_THEME="blinks"
+ZSH_THEME="macovsky"
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
@@ -72,7 +72,7 @@ plugins=(git)
 
 source $ZSH/oh-my-zsh.sh
 
-source .shell-common
+source $HOME/.shell-common
 
 # User configuration
 
@@ -99,3 +99,10 @@ source .shell-common
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
+
+export ERL_AFLAGS="-kernel shell_history enabled"
+
+alias u='cd ..'
+alias glog="git log --all --decorate --oneline --graph"
+alias ag="ag --path-to-ignore ~/.agignore"
+alias cdhs="cd `homesick show_path`"
