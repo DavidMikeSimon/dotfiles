@@ -1,5 +1,5 @@
 call plug#begin('~/.local/share/nvim/plugged')
-Plug 'frankier/neovim-colors-solarized-truecolor-only'
+Plug 'iCyMind/NeoSolarized'
 Plug 'kien/ctrlp.vim'
 Plug 'editorconfig/editorconfig-vim'
 Plug 'simnalamburt/vim-mundo'
@@ -130,10 +130,9 @@ set undofile
 
 " Solarized color scheme
 set background=dark
-let g:solarized_termtrans=1
-let g:solarized_contrast="high"
-let g:solarized_visibility="high"
-colorscheme solarized
+"let g:neosolarized_contrast="high"
+let g:neosolarized_visibility="high"
+colorscheme NeoSolarized
 
 " Open new split panes to the right and bottom
 set splitbelow
