@@ -72,7 +72,7 @@ plugins=(git)
 
 source $ZSH/oh-my-zsh.sh
 
-source $HOME/.shell-common
+source $HOME/.shell-local
 
 # User configuration
 
