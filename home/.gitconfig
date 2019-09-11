@@ -15,3 +15,71 @@
 
 [diff]
   mnemonicprefix = true
+
+[alias]
+  st = status
+  pu = pull upstream
+
+  # current-branch
+  # returns the name of the current branch
+  #
+  # usage: git current-branch
+  current-branch = !git rev-parse --abbrev-ref HEAD
+
+  # sync
+  # check if user is in master branch
+  # pull upstream master
+  # push to origin
+  #
+  # usage: git sync
+  sync = "!f() { \
+    branch=$(git current-branch);\
+    echo Branch: $branch;\
+    if [[ $branch == \"master\" ]]; then \
+      echo Pull upstream master; \
+      git pull upstream master; \
+      echo Push origin master; \
+      git push origin master; \
+    else\
+      echo Not in master branch; \
+    fi; \
+    }; \
+    f"
+
+  # start
+  # stash current changes
+  # checkout master
+  # sync local master and origin with upstream
+  # create new branch
+  #
+  # usage: git start aaa-123
+  start = "!f() { \
+      git stash; \
+      git checkout master; \
+      git sync; \
+      git checkout -b \"$1\"; \
+    }; \
+    f"
+
+  # pr
+  # checks out a pr from upstream
+  #
+  # usage: git pr pr#
+  pr = "!f() { git fetch upstream pull/"$1"/head:pr-"$1" && git checkout pr-"$1"; }; f"
+
+  # clean-branches
+  # check if user is in master branch
+  # removes branches that have been merged to master
+  #
+  # usage: git clean-branches
+  clean-branches = "!f() { \
+    branch=$(git current-branch);\
+    echo Branch: $branch;\
+    if [[ $branch == \"master\" ]]; then \
+      git branch --merged master | grep -v \"\\* master\" | xargs -n 1 git branch -d; \
+      git remote | xargs -n 1 git fetch -p; \
+    else\
+      echo Not in master branch; \
+    fi; \
+    }; \
+    f"
