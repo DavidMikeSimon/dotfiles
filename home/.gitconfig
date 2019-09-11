@@ -5,7 +5,13 @@
   name = David Simon
 
 [core]
-  pager = less -FRXK
+  pager = less -EFRXK
 
 [rerere]
   enabled = true
+
+[color]
+  ui = true
+
+[diff]
+  mnemonicprefix = true
