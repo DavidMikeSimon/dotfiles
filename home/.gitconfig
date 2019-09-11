@@ -1,0 +1,11 @@
+[include]
+  path = ~/.gitconfig-local
+
+[user]
+  name = David Simon
+
+[core]
+  pager = less -FRXK
+
+[rerere]
+  enabled = true
