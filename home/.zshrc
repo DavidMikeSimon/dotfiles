@@ -63,6 +63,8 @@ source $HOME/.shell-local
 
 # User configuration
 
+export PATH="$HOME/bin:$PATH"
+
 export ERL_AFLAGS="-kernel shell_history enabled"
 
 alias u='cd ..'

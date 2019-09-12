@@ -134,6 +134,12 @@ set background=dark
 let g:neosolarized_visibility="high"
 colorscheme NeoSolarized
 
+" Use terminal native background
+highlight Normal ctermbg=none
+highlight NonText ctermbg=none
+highlight Normal guibg=none
+highlight NonText guibg=none
+
 " Open new split panes to the right and bottom
 set splitbelow
 set splitright
@@ -147,9 +153,6 @@ autocmd VimResized * :wincmd =
 
 " Keep some space above/below cursor
 set scrolloff=10
-
-" Esc to leave terminal insert mode
-tnoremap <ESC> <C-\><C-n>
 
 " When pasting in visual mode, don't send replaced text to the default register
 xnoremap p "_dP
@@ -182,6 +185,9 @@ function! InsertIfTerminalBottom()
     endif
   endif
 endfunction
+
+" Remember last cursor position when opening a file again
+au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
 
 " Triger `autoread` when files changes on disk
 " https://unix.stackexchange.com/questions/149209/refresh-changed-content-of-file-opened-in-vim/383044#383044
@@ -249,6 +255,7 @@ nnoremap <silent> <leader>a :ArgWrap<CR>
 " neoterm
 map <C-t> :Ttoggle<CR>
 tnoremap <C-t> <C-\><C-n>:Ttoggle<CR>
+tnoremap <ESC> <C-\><C-n>
 let g:neoterm_autoinsert = 1
 let g:neoterm_default_mod = "botright"
 
