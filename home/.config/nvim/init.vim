@@ -26,6 +26,16 @@ Plug 'vmchale/just-vim'
 Plug 'machakann/vim-highlightedyank'
 call plug#end()
 
+" Detect OS
+if !exists("g:os")
+  if has("win64") || has("win32") || has("win16")
+    let g:os = "Windows"
+  else
+    let g:os = substitute(system('uname'), '\n', '', '')
+  endif
+endif
+
+
 let mapleader=","
 
 set showcmd      " Show (partial) command in status line.
@@ -48,9 +58,14 @@ set inccommand=nosplit " Preview substitution
 " True color in terminal
 set termguicolors
 
-" Shortcuts to work with OS X clipboard
-map <leader>xc :w !xsel --clipboard --input<CR><CR>
-map <leader>xp :r!xsel --clipboard --output<CR>
+" Shortcuts to work with OS clipboard
+if g:os == "Darwin"
+  map <leader>xc :w !pbcopy<CR><CR>
+  map <leader>xp :r!pbpaste<CR>
+else
+  map <leader>xc :w !xsel --clipboard --input<CR><CR>
+  map <leader>xp :r!xsel --clipboard --output<CR>
+endif
 
 " Convenience commands for window switching
 map <C-h> <C-w>h
