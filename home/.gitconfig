@@ -19,6 +19,7 @@
 [alias]
   st = status
   pu = pull upstream
+  sdiff = diff --staged
 
   # current-branch
   # returns the name of the current branch

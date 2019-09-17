@@ -24,6 +24,8 @@ Plug 'maxbrunsfeld/vim-yankstack'
 Plug 'rust-lang/rust.vim'
 Plug 'vmchale/just-vim'
 Plug 'machakann/vim-highlightedyank'
+Plug 'leafgarland/typescript-vim'
+Plug 'peitalin/vim-jsx-typescript'
 call plug#end()
 
 " Detect OS
@@ -109,6 +111,8 @@ set formatoptions=croqj
 autocmd Filetype ruby setlocal comments=:#.,:#
 autocmd Filetype javascript setlocal comments=s1:/*,mb:*,ex:*/,://.,://
 autocmd Filetype javascript.jsx setlocal comments=s1:/*,mb:*,ex:*/,://.,://
+autocmd Filetype typescript setlocal comments=s1:/*,mb:*,ex:*/,://.,://
+autocmd Filetype typescript.tsx setlocal comments=s1:/*,mb:*,ex:*/,://.,://
 
 " Scroll through long lines one visual line at a time
 " FIXME disabled because it messes with relative line number motion
@@ -203,6 +207,9 @@ endfunction
 
 " Remember last cursor position when opening a file again
 au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
+
+" Use dumb autoindent on TSX
+autocmd FileType typescript.tsx setlocal indentexpr=
 
 " Triger `autoread` when files changes on disk
 " https://unix.stackexchange.com/questions/149209/refresh-changed-content-of-file-opened-in-vim/383044#383044
