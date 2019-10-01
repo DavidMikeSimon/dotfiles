@@ -14,6 +14,6 @@ end tell
 EOF
 }
 
-[[ ! -z "$ITERM_PROFILE" ]] && set_term_bgcolor $[ 1 + $[ RANDOM % 40 ]] $[ 1 + $[ RANDOM % 20 ]] $[ 1 + $[ RANDOM % 40 ]]
+[[ ! -z "$ITERM_PROFILE" ]] && set_term_bgcolor $[ 20 + $[ RANDOM % 40 ]] $[ 20 + $[ RANDOM % 20 ]] $[ 20 + $[ RANDOM % 40 ]]
 
 clear

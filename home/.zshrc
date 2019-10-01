@@ -71,3 +71,6 @@ alias u='cd ..'
 alias glog="git log --all --decorate --oneline --graph"
 alias ag="ag --path-to-ignore ~/.agignore"
 alias cdhs="cd `homesick show_path`"
+alias ta="tmux attach -t"
+alias tn="tmux new -s"
+alias tl="tmux ls"
