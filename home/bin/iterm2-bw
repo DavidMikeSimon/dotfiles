@@ -1,0 +1,11 @@
+#!/bin/bash
+# Based on https://gist.github.com/lherich/69c258786f32e85bad4c
+
+/usr/bin/osascript <<EOF
+tell application "iTerm2"
+  tell current session of current window
+    set background color to {65535, 65535, 65535}
+    set foreground color to {0, 0, 0}
+  end tell
+end tell
+EOF
