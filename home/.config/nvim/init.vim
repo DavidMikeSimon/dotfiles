@@ -5,27 +5,26 @@ Plug 'editorconfig/editorconfig-vim'
 Plug 'simnalamburt/vim-mundo'
 Plug 'scrooloose/nerdcommenter'
 Plug 'tpope/tpope-vim-abolish'
-Plug 'itchyny/lightline.vim'
 Plug 'tpope/vim-eunuch'
 Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
-Plug 'easymotion/vim-easymotion'
 Plug 'haya14busa/incsearch.vim'
-Plug 'haya14busa/incsearch-fuzzy.vim'
-Plug 'haya14busa/incsearch-easymotion.vim'
-Plug 'mxw/vim-jsx'
 Plug 'FooSoft/vim-argwrap'
 Plug 'kassio/neoterm'
 Plug 'Shougo/deoplete.nvim'
 Plug 'janko-m/vim-test'
+Plug 'maxbrunsfeld/vim-yankstack'
+Plug 'machakann/vim-highlightedyank'
+Plug 'vim-scripts/ruby-matchit'
+
+Plug 'mxw/vim-jsx'
 Plug 'isRuslan/vim-es6'
 Plug 'elixir-editors/vim-elixir'
-Plug 'maxbrunsfeld/vim-yankstack'
 Plug 'rust-lang/rust.vim'
 Plug 'vmchale/just-vim'
-Plug 'machakann/vim-highlightedyank'
 Plug 'leafgarland/typescript-vim'
 Plug 'peitalin/vim-jsx-typescript'
+Plug 'hashivim/vim-terraform'
 call plug#end()
 
 " Detect OS
@@ -53,8 +52,7 @@ set ruler        " Always show current position
 set autoindent   " Automatically copy indent to new lines
 set nohlsearch   " Highlight search results
 set shiftround   " Don't allow uneven indentation
-set noshowmode   " Don't show --INSERT-- below the statusline
-set lazyredraw   " Faster redrawing
+set nolazyredraw " Better cursor movement
 set inccommand=nosplit " Preview substitution
 
 " True color in terminal
@@ -114,11 +112,6 @@ autocmd Filetype javascript.jsx setlocal comments=s1:/*,mb:*,ex:*/,://.,://
 autocmd Filetype typescript setlocal comments=s1:/*,mb:*,ex:*/,://.,://
 autocmd Filetype typescript.tsx setlocal comments=s1:/*,mb:*,ex:*/,://.,://
 
-" Scroll through long lines one visual line at a time
-" FIXME disabled because it messes with relative line number motion
-"map j gj
-"map k gk
-
 " Fast scrolling up and down
 map U <C-u>
 map D <C-d>
@@ -148,16 +141,23 @@ set undodir=$HOME/.nvim-undo
 set undofile
 
 " Solarized color scheme
-set background=dark
+set background=light
 "let g:neosolarized_contrast="high"
 let g:neosolarized_visibility="high"
 colorscheme NeoSolarized
 
 " Use terminal native background
-highlight Normal ctermbg=none
-highlight NonText ctermbg=none
-highlight Normal guibg=none
-highlight NonText guibg=none
+highlight Normal ctermbg=none guibg=none
+highlight NonText ctermbg=none guibg=none
+
+" TODO Pick a terminal color, and use iterm2-random-bg to set that color
+" to a little darker than the random bg color
+highlight CursorLine ctermbg=none guibg=none
+highlight CursorLineNr ctermbg=none guibg=none
+highlight CursorColumn ctermbg=none guibg=none
+highlight ColorColumn ctermbg=none guibg=none
+highlight SignColumn ctermbg=none guibg=none
+highlight LineNr ctermbg=none guibg=none
 
 " Open new split panes to the right and bottom
 set splitbelow
@@ -208,8 +208,9 @@ endfunction
 " Remember last cursor position when opening a file again
 au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
 
-" Use dumb autoindent on TSX
+" Use dumb autoindent on TSX and ruby
 autocmd FileType typescript.tsx setlocal indentexpr=
+autocmd FileType rb setlocal indentexpr=
 
 " Triger `autoread` when files changes on disk
 " https://unix.stackexchange.com/questions/149209/refresh-changed-content-of-file-opened-in-vim/383044#383044
@@ -239,7 +240,7 @@ let g:ctrlp_user_command = {
     \ 1: ['.git', 'cd %s && git ls-files -co --exclude-standard'],
     \ 2: ['.hg', 'hg --cwd %s locate -I .'],
     \ },
-  \ 'fallback': "find %s -type f -not -path '*/\\.*' -maxdepth 5"
+  \ 'fallback': 'ag %s -l --nocolor -g ""'
   \ }
 
 " Mundo
@@ -252,24 +253,8 @@ let g:gitgutter_realtime=0
 let g:gitgutter_eager=0
 highlight SignColumn ctermbg=black
 
- " easymotion
-let g:EasyMotion_do_mapping = 0
-let g:EasyMotion_smartcase = 1
-let g:EasyMotion_keys='aoeuhtnsidpgyfc.r,bjkx;zv'
-map s <Plug>(easymotion-s2)
-nmap s <Plug>(easymotion-overwin-f2)
-
- " easymotion + incsearch
-function! s:config_easyfuzzymotion(...) abort
-  return extend(copy({
-  \   'converters': [incsearch#config#fuzzyword#converter()],
-  \   'modules': [incsearch#config#easymotion#module({'overwin': 1})],
-  \   'keymap': {"\<CR>": '<Over>(easymotion)'},
-  \   'is_expr': 0,
-  \   'is_stay': 1
-  \ }), get(a:, 1, {}))
-endfunction
-noremap <silent><expr> <leader>s incsearch#go(<SID>config_easyfuzzymotion())
+map / <Plug>(incsearch-forward)
+map ? <Plug>(incsearch-backward)
 
 " argwrap
 nnoremap <silent> <leader>a :ArgWrap<CR>
@@ -288,26 +273,9 @@ inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
 " vim-test
 nnoremap <silent> <leader>tt :TestNearest<CR>
 nnoremap <silent> <leader>tf :TestFile<CR>
-" nnoremap <silent> <leader>ta :TestSuite<CR>
 nnoremap <silent> <leader>tl :TestLast<CR>
 nnoremap <silent> <leader>tv :TestVisit<CR>
 let test#strategy = "neoterm"
 
 " NERDcommenter
 let NERDSpaceDelims=1
-
-" lightline
-let g:lightline = {
-      \ 'active': {
-      \   'left': [ [ 'mode', 'paste' ],
-      \             [ 'readonly', 'relativepath', 'modified' ] ],
-      \  'right': [ [ 'lineinfo' ], [ 'percent' ] ]
-      \ },
-      \ 'inactive': {
-      \   'left': [ [ 'readonly', 'relativepath', 'modified' ] ],
-      \  'right': [ [ 'lineinfo' ], [ 'percent' ] ]
-      \ },
-      \ 'component_function': {
-      \   'gitbranch': 'fugitive#head'
-      \ },
-\ }

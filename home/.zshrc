@@ -63,7 +63,7 @@ source $HOME/.shell-local
 
 # User configuration
 
-export PATH="$HOME/bin:$PATH"
+export PATH="$HOME/bin:$HOME/go/bin:$PATH"
 
 export ERL_AFLAGS="-kernel shell_history enabled"
 
@@ -74,4 +74,9 @@ alias cdhs="cd `homesick show_path`"
 alias ta="tmux attach -t"
 alias tn="tmux new -s"
 alias tl="tmux ls"
-alias dcexec="docker-compose -f ~/aaa/aaa-tools/composable/docker-compose.yml exec `basename \`pwd\``"
+alias dca="docker-compose -f ~/nr/aaa-tools/composable/docker-compose.yml"
+alias paws="PAGER=cat aws --profile $OKTAWS_PROFILE"
+
+#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
+export SDKMAN_DIR="/Users/dsimon/.sdkman"
+[[ -s "/Users/dsimon/.sdkman/bin/sdkman-init.sh" ]] && source "/Users/dsimon/.sdkman/bin/sdkman-init.sh"

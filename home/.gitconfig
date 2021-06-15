@@ -1,11 +1,18 @@
 [include]
   path = ~/.gitconfig-local
 
+[grep]
+  lineNumber = true
+
+[init]
+  defaultBranch = "main"
+
 [user]
   name = David Simon
 
 [core]
   pager = less -FRXK
+  excludesfile = "~/.gitignore"
 
 [rerere]
   enabled = true
@@ -84,3 +91,8 @@
     fi; \
     }; \
     f"
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
