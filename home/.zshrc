@@ -77,6 +77,4 @@ alias tl="tmux ls"
 alias dca="docker-compose -f ~/nr/aaa-tools/composable/docker-compose.yml"
 alias paws="PAGER=cat aws --profile $OKTAWS_PROFILE"
 
-#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
-export SDKMAN_DIR="/Users/dsimon/.sdkman"
-[[ -s "/Users/dsimon/.sdkman/bin/sdkman-init.sh" ]] && source "/Users/dsimon/.sdkman/bin/sdkman-init.sh"
+eval "$(rbenv init -)"

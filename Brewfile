@@ -46,10 +46,12 @@ brew "michaeleisel/zld/zld"
 
 cask "adoptopenjdk8"
 cask "dropbox"
+cask "hammerspoon"
 cask "gimp"
 cask "graphiql"
 cask "iterm2"
 cask "visual-studio-code"
+cask "vlc"
 
 mas "Monosnap", id: 540348655
 mas "Xcode", id: 497799835
