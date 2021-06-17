@@ -6,14 +6,12 @@ function withZoomApp(fun)
 end
 
 function pttDown()
-  hs.alert("DOWN")
   withZoomApp(function(app)
     hs.eventtap.event.newKeyEvent("space", true):post(app)
   end)
 end
 
 function pttUp()
-  hs.alert("UP")
   withZoomApp(function(app)
     hs.eventtap.event.newKeyEvent("space", false):post(app)
   end)
@@ -42,24 +40,27 @@ zoomRightShiftPttListener = hs.eventtap.new({hs.eventtap.event.types.flagsChange
 end)
 zoomRightShiftPttListener:start()
 
-screenSwitchers = {}
+screenWindowFilters = {}
 log = hs.logger.new("WAT")
 hs.window.animationDuration = 0
-hs.window.switcher.ui.showThumbnails = false
-hs.window.switcher.ui.showSelectedThumbnail = false
 
 function focusMonitorFn(idx)
   return function()
     local screen = hs.screen.allScreens()[idx]
     if screen then
       local screenId = screen:id()
-      switcher = screenSwitchers[screenId]
-      if switcher == nil then
+      local wf = screenWindowFilters[screenId]
+      if wf == nil then
         wf = hs.window.filter.new(nil):setScreens(screenId)
-        switcher = hs.window.switcher.new(wf)
-        screenSwitchers[screenId] = switcher
+        screenWindowFilters[screenId] = wf
       end
-      switcher:next()
+      local windows = wf:getWindows()
+      local focusedWindow = hs.window.focusedWindow()
+      local focusedWindowId = focusedWindow and focusedWindow:id()
+      local window = hs.fnutils.find(windows, function (w) return w:id() ~= focusedWindowId end)
+      if window then
+        window:focus()
+      end
     end
   end
 end
