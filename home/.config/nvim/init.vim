@@ -141,8 +141,8 @@ set undodir=$HOME/.nvim-undo
 set undofile
 
 " Solarized color scheme
-set background=light
-"let g:neosolarized_contrast="high"
+set background=dark
+let g:neosolarized_contrast="high"
 let g:neosolarized_visibility="high"
 colorscheme NeoSolarized
 
