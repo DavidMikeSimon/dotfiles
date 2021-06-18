@@ -42,7 +42,6 @@ brew "the_silver_searcher"
 brew "tmux"
 brew "tree"
 brew "unshield"
-brew "michaeleisel/zld/zld"
 brew "zsh"
 
 cask "adoptopenjdk8"
@@ -57,4 +56,3 @@ cask "visual-studio-code"
 cask "vlc"
 
 mas "Monosnap", id: 540348655
-mas "Xcode", id: 497799835
