@@ -77,5 +77,32 @@
   "ruby.useBundler": true,
   "ruby.useLanguageServer": true,
   "ruby.format": "rubocop",
-  "bracket-pair-colorizer-2.colorMode": "Independent"
+  "bracket-pair-colorizer-2.colorMode": "Independent",
+  "terminal.integrated.scrollback": 10000,
+  "editor.formatOnSave": true,
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true
+  },
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[typescript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[typescriptreact]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[yaml]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[json]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "python.formatting.autopep8Path": "black",
+  "python.formatting.provider": "black",
+  "python.linting.pylintEnabled": true,
+  "workbench.editorAssociations": {
+    "*.ipynb": "jupyter.notebook.ipynb"
+  },
+  "python.showStartPage": false,
 }

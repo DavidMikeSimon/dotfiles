@@ -78,3 +78,9 @@ alias dca="docker-compose -f ~/nr/aaa-tools/composable/docker-compose.yml"
 alias paws="PAGER=cat aws --profile $OKTAWS_PROFILE"
 
 eval "$(rbenv init -)"
+
+eval "$(pyenv init --path)"
+eval "$(pyenv init -)"
+eval "$(pyenv virtualenv-init -)"
+export LDFLAGS="-L/usr/local/opt/zlib/lib -L/usr/local/opt/bzip2/lib"
+export CPPFLAGS="-I/usr/local/opt/zlib/include -I/usr/local/opt/bzip2/include"
