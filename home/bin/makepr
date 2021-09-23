@@ -1,0 +1,33 @@
+#!/usr/bin/env python3
+
+import re
+import subprocess
+import sys
+
+subprocess.check_output(["git", "push"])
+
+name_pattern = re.compile(r"dsimon-([A-Z]+-[0-9]+)-(.+)")
+
+branch_name = subprocess.check_output(["git", "rev-parse", "--abbrev-ref", "HEAD"]).strip().decode("utf-8")
+
+match = name_pattern.fullmatch(branch_name)
+if not match:
+  print("Branch name doesn't match pattern")
+  sys.exit(1)
+
+(ticket_name, summary) = match.groups()
+title = "[%s] %s" % (ticket_name, summary.replace("-", " ").capitalize())
+body = "Jira: https://getcolor.atlassian.net/browse/%s\n\n## Description\n\nStuff.\n" % (ticket_name,)
+
+url = subprocess.check_output([
+    "gh", "pr", "create",
+    "--base", "master",
+    "--draft",
+    "--title", title,
+    "--body", body
+]).decode("utf-8").strip()
+
+print()
+print("PR created: %s" % url)
+
+subprocess.run(["open", url])
