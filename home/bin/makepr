@@ -4,8 +4,6 @@ import re
 import subprocess
 import sys
 
-subprocess.check_output(["git", "push"])
-
 name_pattern = re.compile(r"dsimon-([A-Z]+-[0-9]+)-(.+)")
 
 branch_name = subprocess.check_output(["git", "rev-parse", "--abbrev-ref", "HEAD"]).strip().decode("utf-8")
@@ -14,6 +12,8 @@ match = name_pattern.fullmatch(branch_name)
 if not match:
   print("Branch name doesn't match pattern")
   sys.exit(1)
+
+subprocess.check_output(["git", "push"])
 
 (ticket_name, summary) = match.groups()
 title = "[%s] %s" % (ticket_name, summary.replace("-", " ").capitalize())
