@@ -69,7 +69,8 @@ export ERL_AFLAGS="-kernel shell_history enabled"
 
 alias u='cd ..'
 alias glog="git log --all --decorate --oneline --graph"
-alias ag="ag --path-to-ignore ~/.agignore"
+alias groot="pushd `git rev-parse --show-toplevel`"
+alias ag="ag --noheading --color --path-to-ignore ~/.agignore"
 alias cdhs="cd `homesick show_path`"
 alias ta="tmux attach -t"
 alias tn="tmux new -s"
@@ -77,8 +78,13 @@ alias tl="tmux ls"
 alias dca="docker-compose -f ~/nr/aaa-tools/composable/docker-compose.yml"
 alias paws="PAGER=cat aws --profile $OKTAWS_PROFILE"
 
+lag() { ag $@ | less -S }
+
+eval "$(thefuck --alias)"
+
 eval "$(rbenv init -)"
 
+export VIRTUAL_ENV_DISABLE_PROMPT=1
 eval "$(pyenv init --path)"
 eval "$(pyenv init -)"
 eval "$(pyenv virtualenv-init -)"

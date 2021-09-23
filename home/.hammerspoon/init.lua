@@ -27,10 +27,7 @@ function disconnect()
   end)
 end
 
-hs.hotkey.bind('', 'padenter', pttDown, pttUp)
-hs.hotkey.bind('', 'pad1', disconnect)
-
--- Also let's use right-shift as a Zoom PTT key.
+-- Let's use right-shift as a Zoom PTT key.
 -- Can't use hotkey.bind to just watch modifier changes, so we use eventtap directly
 zoomRightShiftPttListener = hs.eventtap.new({hs.eventtap.event.types.flagsChanged}, function(event)
   if (event:getKeyCode() == hs.keycodes.map['rightshift']) then
@@ -42,6 +39,8 @@ zoomRightShiftPttListener = hs.eventtap.new({hs.eventtap.event.types.flagsChange
   end
 end)
 zoomRightShiftPttListener:start()
+
+hs.hotkey.bind('', 'pad1', disconnect)
 
 --------
 -- Window switching
@@ -67,7 +66,7 @@ altReleaseListener:start()
 
 function focusMonitorFn(idx)
   return function()
-    local screen = hs.screen.allScreens()[idx]
+    local screen = hs.screen.find({x=idx, y=0})
     if not screen then
       return
     end
@@ -107,6 +106,10 @@ function focusMonitorFn(idx)
   end
 end
 
-hs.hotkey.bind('alt', "'", focusMonitorFn(1))
-hs.hotkey.bind('alt', ',', focusMonitorFn(2))
-hs.hotkey.bind('alt', '.', focusMonitorFn(3))
+hs.hotkey.bind('alt', "'", focusMonitorFn(0))
+hs.hotkey.bind('alt', ',', focusMonitorFn(1))
+hs.hotkey.bind('alt', '.', focusMonitorFn(2))
+
+-- FIXME Can't seem to escape Zoom window
+-- FIXME When one app has windows on two screens, this doesn't work properly
+-- FIXME Send mouse?

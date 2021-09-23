@@ -1,5 +1,4 @@
 {
-  "window.zoomLevel": 0,
   "vim.autoindent": false,
   "vim.camelCaseMotion.enable": true,
   "vim.leader": ",",
@@ -43,12 +42,12 @@
   "runInTerminal.commands": [
     {"match": "_spec\\.rb$", "name": "l", "cmd": "bundle exec rspec ${relativeFile}:${line}"},
     {"match": "_spec\\.rb$", "name": "f", "cmd": "bundle exec rspec ${relativeFile}"},
+    {"match": "test_.+\\.py$", "name": "f", "cmd": "clr django:test ${relativeFile}"},
     {"match": "(spec|test)\\.js$", "name": "f", "cmd": "xvfb-run ./node_modules/karma/bin/karma start --single-run=true --single-file=\"${relativeFile}\""}
   ],
   "files.autoSave": "onFocusChange",
   "workbench.editor.showTabs": false,
   "window.title": "${rootName}${separator}${appName}",
-  "workbench.editor.labelFormat": "medium",
   "extensions.ignoreRecommendations": true,
   "editor.smoothScrolling": true,
   "vim.neovimPath": "/usr/local/bin/nvim",
@@ -62,10 +61,7 @@
   "editor.lineNumbers": "on",
   "editor.wordSeparators": "/\\()\"':,.;<>~!@#$%^&*|+=[]{}`?-",
   "editor.wordWrap": "off",
-  "gitlens.currentLine.enabled": false,
-  "gitlens.menus": false,
   "editor.stickyTabStops": true,
-  "editor.acceptSuggestionOnEnter": "off",
   "editor.renderLineHighlightOnlyWhenFocus": true,
   "workbench.colorCustomizations": {
     "editor.lineHighlightBackground": "#233",
@@ -79,10 +75,6 @@
   "ruby.format": "rubocop",
   "bracket-pair-colorizer-2.colorMode": "Independent",
   "terminal.integrated.scrollback": 10000,
-  "editor.formatOnSave": true,
-  "editor.codeActionsOnSave": {
-    "source.fixAll.eslint": true
-  },
   "[javascript]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
@@ -102,7 +94,30 @@
   "python.formatting.provider": "black",
   "python.linting.pylintEnabled": true,
   "workbench.editorAssociations": {
-    "*.ipynb": "jupyter.notebook.ipynb"
+    "*.ipynb": "jupyter-notebook"
   },
   "python.showStartPage": false,
+  "editor.acceptSuggestionOnCommitCharacter": false,
+  "editor.suggest.showStatusBar": true,
+  "editor.inlineSuggest.enabled": true,
+  "editor.quickSuggestions": true,
+  "editor.suggest.preview": true,
+  "files.exclude": {
+    "/.history/**": true
+  },
+  "files.watcherExclude": {
+    "/.history/**": true
+  },
+  "search.exclude": {
+    "/.history/**": true
+  },
+  "workbench.editor.labelFormat": "medium",
+  "editor.fontSize": 11,
+  "editor.lineHeight": 1.1,
+  "terminal.integrated.fontSize": 11,
+  "terminal.integrated.lineHeight": 0.9,
+  "notebook.cellToolbarLocation": {
+    "default": "right",
+    "jupyter-notebook": "left"
+  },
 }

@@ -98,3 +98,6 @@
 	required = true
 [pull]
 	ff = only
+	default = current
+[push]
+	default = current

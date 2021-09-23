@@ -1,3 +1,5 @@
 .DS_store
 /.history
 /.python-version
+/Procfile.local
+/.overmind.env
